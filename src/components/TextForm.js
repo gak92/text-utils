@@ -2,10 +2,15 @@ import React, {useState} from 'react'
 import PropTypes from 'prop-types';
 
 export default function TextForm(props) {
-  const [text, setText] = useState("Enter the text here");
+  const [text, setText] = useState("");
 
   const handleUpClick = () => {
     let newText = text.toUpperCase();
+    setText(newText);
+  }
+
+  const handleLoClick = () => {
+    let newText = text.toLowerCase();
     setText(newText);
   }
 
@@ -20,9 +25,19 @@ export default function TextForm(props) {
         <textarea className="form-control" id="myBox" rows="8" value={text} onChange={handleTextChange}>
         </textarea>
       </div>
-      <button className="btn btn-primary" onClick={handleUpClick}>
+      <button className="btn btn-primary mx-1" onClick={handleUpClick}>
         Convert Text to UpperCase
       </button>
+      <button className="btn btn-primary mx-1" onClick={handleLoClick}>
+        Convert Text to LowerCase
+      </button>
+      <div className='my-3'>
+        <h2>Your Text Summary</h2>
+        <p>{text.split(" ").length} words, {text.length} characters</p>
+        <p>{0.008 * text.split(" ").length} minutes read</p>
+        <h3>Preview</h3>
+        <p>{text}</p>
+      </div>
     </div>
   )
 }
