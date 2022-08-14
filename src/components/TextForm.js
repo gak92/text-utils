@@ -18,15 +18,36 @@ export default function TextForm(props) {
     setText("");
   }
 
+  const handleCopyClick = () => {
+    let text = document.getElementById('myBox');
+    text.select();
+    navigator.clipboard.writeText(text.value);
+  }
+
+  const handleRemoveExtraSpaces = () => {
+    let newText = text.split(/[ ]+/);
+    setText(newText.join(" "));
+  }
+
   const handleTextChange = (e) => {
     setText(e.target.value);
   }
   
   return (
-    <div className='container my-3'>
+    <div className='container my-3' style={{
+      color: props.mode==='light'?'black':'white'
+    }}>
       <h1>{props.heading}</h1>
       <div className="mb-3">
-        <textarea className="form-control" id="myBox" rows="8" value={text} onChange={handleTextChange}>
+        <textarea className="form-control" 
+          id="myBox" 
+          rows="8" 
+          value={text} 
+          onChange={handleTextChange}
+          style={{
+            backgroundColor: props.mode==='light'?'white':'gray',
+            color: props.mode==='light'?'black':'white'
+          }}>
         </textarea>
       </div>
       <button className="btn btn-primary mx-1" onClick={handleUpClick}>
@@ -38,6 +59,12 @@ export default function TextForm(props) {
       <button className="btn btn-primary mx-1" onClick={handleClearClick}>
         Clear Text
       </button>
+      <button className="btn btn-primary mx-1" onClick={handleCopyClick}>
+        Copy Text
+      </button>
+      <button className="btn btn-primary mx-1" onClick={handleRemoveExtraSpaces}>
+        Remvoe Extra Spaces
+      </button>
       <div className='my-3'>
         <h2>Your Text Summary</h2>
         <p>
@@ -47,7 +74,7 @@ export default function TextForm(props) {
         </p>
         <p>{0.008 * text.split(" ").length} minutes read</p>
         <h3>Preview</h3>
-        <p>{text}</p>
+        <p>{text.length>0?text:'Enter something above to preview here'}</p>
       </div>
     </div>
   )
