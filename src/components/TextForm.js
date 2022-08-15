@@ -54,29 +54,31 @@ export default function TextForm(props) {
           }}>
         </textarea>
       </div>
-      <button className="btn btn-primary mx-1" onClick={handleUpClick}>
+      <button className="btn btn-primary mx-1 my-1" onClick={handleUpClick} disabled={text.length===0}>
         Convert Text to UpperCase
       </button>
-      <button className="btn btn-primary mx-1" onClick={handleLoClick}>
+      <button className="btn btn-primary mx-1 my-1" onClick={handleLoClick} disabled={text.length===0}>
         Convert Text to LowerCase
       </button>
-      <button className="btn btn-primary mx-1" onClick={handleClearClick}>
+      <button className="btn btn-primary mx-1 my-1" onClick={handleClearClick} disabled={text.length===0}>
         Clear Text
       </button>
-      <button className="btn btn-primary mx-1" onClick={handleCopyClick}>
+      <button className="btn btn-primary mx-1 my-1" onClick={handleCopyClick} disabled={text.length===0}>
         Copy Text
       </button>
-      <button className="btn btn-primary mx-1" onClick={handleRemoveExtraSpaces}>
+      <button className="btn btn-primary mx-1 my-1" onClick={handleRemoveExtraSpaces} disabled={text.length===0}>
         Remvoe Extra Spaces
       </button>
       <div className='my-3'>
         <h2>Your Text Summary</h2>
         <p>
-          {text.split(" ").length} words, 
+          {text.split(" ").filter((el)=>el.length!==0).length} words, 
           {text.length} characters with space, 
           {text.length - text.split(" ").length} characters without space
         </p>
-        <p>{0.008 * text.split(" ").length} minutes read</p>
+        <p>{0.008 * text.split(" ").filter((el)=>el.length!==0).length} 
+          minutes read
+        </p>
         <h3>Preview</h3>
         <p>{text.length>0?text:'Enter something above to preview here'}</p>
       </div>
